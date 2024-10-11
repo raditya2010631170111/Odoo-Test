@@ -6,6 +6,15 @@ class TestLibraryBook(TransactionCase):
         super(TestLibraryBook, self)setUp()
         self.library_book = self.env['library.book']
 
+        def test_negative_price_constraint(self):
+            with self.assertRaises(ValidationError):
+                self.library_book.create({'title':'Invalid Book','author':'Test Author','price': -10.0})
+
+        def test_positive_price_constraint(self):
+            book = self.library_book.create({'title':'Valid Book','author':'Test Author','price': 25.0})
+
+                self.assertEqual(book.price,25.0)
+
         def test_category_not_blank(self):
             """
             ValidationError ketika category kosong
