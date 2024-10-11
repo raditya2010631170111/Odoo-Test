@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="book_1" model="library.book">
+        <field name="title">The Catcher in the Rye</field>
+        <field name="author">J.D. Salinger</field>
+        <field name="price">15.99</field>
+    </record>
+    <record id="book_2" model="library.book">
+        <field name="title">1984</field>
+        <field name="author">George Orwell</field>
+        <field name="price">12.50</field>
+    </record>
+    <record id="book_3" model="library.book">
+        <field name="title">To Kill a Mockingbird</field>
+        <field name="author">Harper Lee</field>
+        <field name="price">10.00</field>
+    </record>
+</odoo>
