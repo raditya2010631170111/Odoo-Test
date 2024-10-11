@@ -21,7 +21,22 @@ class TestLibraryBook(TransactionCase):
             """
             with self.assertRaises(ValidationError):
                 self.library_book.create({'title': 'Book without category','author': 'Test AUthor', 'price': 10.0, 'category': None})
-        
+
+        def test_fetch_additional_details_success(self):
+            """ Fetched successfully OpenLibrary API. """
+            book = self.library_book.create({'title':'1984','author':'George Orwell','price':12.50,'category':'fiction'})
+                book.fetch_additional_details()
+                self.assertTrue(book.isbn)
+                self.assertTrue(book.publication_year)
+
+        def test_fetch_additional_details_no_results(self):
+            """ Fetched failed OpenLibrary API. """
+            book = self.library_book.create({'title':'Judul Buku Tidak ada','author':'Penulis tidak diketahui','price':20.20,'category':'science'})
+                book.fetch_additional_details()
+                self.assertFalse(book.isbn)
+                self.assertEqual(book.publication_year, 0)
+                self.assertTrue(book.message_ids)
+
         def test_button_calculate_total_books_per_category(self):
             """ Membuat books di kategori berbeda dan tes button calculate books per category """
             self.library_book.create({'title': 'Book 1','author':'Author 1','price':10.0,'category':'fiction'})
@@ -33,3 +48,7 @@ class TestLibraryBook(TransactionCase):
                     
             book.calculate_total_books_per_category()
             self.assertTrue(book.message_ids) #cek message dipost
+
+            messages = book.message_ids.mapped('body')
+            self.assertIn("Total books category 'Fiction': 2", messages)
+            self.assertIn("Total books category 'Science':1", messages)

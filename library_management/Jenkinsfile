@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        ODOO_CONF = '/C:/Program Files/Odoo 14.0.20231016/server/odoo.conf'
+        ODOO_DB = ''
+        MODULE = 'library_management'
+        GIT_REPO = 'https://github.com/raditya2010631170111/Odoo-Test'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: "${env.GIT_REPO}". branch:'master'
+            }
+        }
+        stage('Setup') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            when {
+                branch 'main'
+            }
+            steps {
+            }
+        }
+
+        post {
+            always {
+                junit 'reports/*.xml'
+                archiveArtifacts artifacts: '**/logs/*.log',allowEmptyArchive:true
+                
+            }
+            success {
+                echo 'Pipeline berhasil'
+            }
+            failure {
+                echo 'Pipeline gagal'
+            }
+        }
+    }
+}

@@ -9,6 +9,8 @@
                 <field name="author"/>
                 <field name="price"/>
                 <field name="category"/>
+                <field name="isbn"/>
+                <field name="publication_year"/>
             </tree>
         </field>
     </record>
@@ -24,8 +26,11 @@
                         <field name="author"/>
                         <field name="price"/>
                         <field name="category"/>
+                        <field name="isbn" readonly="1"/>
+                        <field name="publication_year" readonly="1"/>
                     </group>
                     <footer>
+                        <button name="fetch_additional_details" string="Fetch Details" type="object" class="btn-secondary"/>
                         <button name="calculate_total_books_per_category" string="Calculate" type="object" class="btn-primary"/>
                     </footer>
                 </sheet>

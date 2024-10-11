@@ -2,11 +2,11 @@
     'name': 'Library Management',
     'summary': 'Library Management',
     'description': """
-        Submenu baru pada menu Accounting yang memiliki fitur untuk meminta atau mengembalikan uang kepada finance
+        
     """,
-    'author': "PT. Ismata Nusantara Abadi",
+    'author': "Raditya Aji Sasmoyo",
 
-    'website': "https://ismata.co.id/",
+    'website': "https://github.com/raditya2010631170111/Odoo-Test",
 
     'category': 'Tools',
 
@@ -21,6 +21,7 @@
     # 'images': [],
     'demo': [],
     'installable': True,
-    'auto_install': True,
     'application': True,
+    'auto_install': False,
+    'external_dependencies': {'python': ['requests','requests_cache'],},
 }
